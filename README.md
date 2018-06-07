@@ -99,7 +99,7 @@ This Snakemake pipeline requires a config file (JSON format) with the following 
     }
 }
 ```
-IMPORTANT: the basename for each fastq file must be unique. In many cases the only information that will be changing between ATAC-seq experiments is the library information and the desired output directory (paths to BWA indices, blacklists, etc. will remain unchanged). It may therefore by convenient to have a single permanent JSON file with all of the required information except the library information and the results dir. If this is the case, you can use the python script at `src/make_atacseq_config.py` to add library information and the results path to this unchanging JSON:
+IMPORTANT: the basename for each fastq file must be unique, as must be the readgroup names (keys). In many cases the only information that will be changing between ATAC-seq experiments is the library information and the desired output directory (paths to BWA indices, blacklists, etc. will remain unchanged). It may therefore by convenient to have a single permanent JSON file with all of the required information except the library information and the results dir. If this is the case, you can use the python script at `src/make_atacseq_config.py` to add library information and the results path to this unchanging JSON:
 ```bash
 python src/make_atacseq_config.py -r /path/to/results_dir /path/to/json_with_everything_except_libraries_and_results.json /path/to/json_with_libraries.json
 ```
