@@ -120,14 +120,14 @@ def get_tss(genome):
 
 
 def get_whitelists(genome):
-    if genome in config['whitelist']:
+    if 'whitelist' in config and genome in config['whitelist']:
         return config['whitelist'][genome]
     else:
         return None
 
 
 def get_blacklists(genome):
-    if genome in config['blacklist']:
+    if 'blacklist' in config and genome in config['blacklist']:
         return config['blacklist'][genome]
     else:
         return None
