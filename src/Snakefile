@@ -216,11 +216,8 @@ rule merge:
     output:
         bam = os.path.join(MERGE_DIR, '{library}.bam'),
         bam_index = os.path.join(MERGE_DIR, '{library}.bam.bai'),
-    params:
-        unsorted_merged_bam = os.path.join(MERGE_DIR, '{library}.unsorted.bam'),
-        sort_tmp_prefix = os.path.join(MERGE_DIR, '{library}.sort')
     shell:
-        """samtools merge {params.unsorted_merged_bam} {input}; ionice -c2 -n7 samtools sort -m 1G -O bam -T {params.sort_tmp_prefix} -o {output.bam} {params.unsorted_merged_bam}; samtools index {output.bam}; rm {params.unsorted_merged_bam}"""
+        """samtools merge {output.bam} {input}; samtools index {output.bam}"""
 
 
 rule mark_duplicates:
