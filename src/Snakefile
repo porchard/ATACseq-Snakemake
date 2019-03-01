@@ -214,16 +214,14 @@ rule merge:
     input:
         lambda wildcards: [os.path.join(BWA_DIR, '{}______{}.bam'.format(wildcards.library, readgroup)) for readgroup in iterate_library_readgroups(wildcards.library)]
     output:
-        bam = os.path.join(MERGE_DIR, '{library}.bam'),
-        bam_index = os.path.join(MERGE_DIR, '{library}.bam.bai'),
+        bam = os.path.join(MERGE_DIR, '{library}.bam')
     shell:
-        """samtools merge {output.bam} {input}; samtools index {output.bam}"""
+        """samtools merge {output.bam} {input}"""
 
 
 rule mark_duplicates:
     input:
         bam = os.path.join(MERGE_DIR, '{library}.bam'),
-        bam_index = os.path.join(MERGE_DIR, '{library}.bam.bai')
     output:
         bam = os.path.join(MD_DIR, '{library}.md.bam'),
         bam_index = os.path.join(MD_DIR, '{library}.md.bam.bai')
