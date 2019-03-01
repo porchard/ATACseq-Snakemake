@@ -49,6 +49,8 @@ ATAQV_DIR = prefix_results('ataqv')
 LOG_DIR = prefix_results('logs')
 VERSION_DIR = prefix_results('versions')
 
+PICARD_JAR = os.getenv('PICARD_JAR')
+
 
 # Helper functions
 
@@ -229,7 +231,7 @@ rule mark_duplicates:
         metrics = os.path.join(MD_DIR, '{library}.metrics'),
         tmp_dir = MD_DIR
     shell:
-        """picard -m 4g MarkDuplicates I={input.bam} O={output.bam} ASSUME_SORTED=true METRICS_FILE={params.metrics} VALIDATION_STRINGENCY=LENIENT TMP_DIR={params.tmp_dir}; samtools index {output.bam}"""
+        """java -Xmx4g -Xms4g -jar {PICARD_JAR} MarkDuplicates I={input.bam} O={output.bam} ASSUME_SORTED=true METRICS_FILE={params.metrics} VALIDATION_STRINGENCY=LENIENT TMP_DIR={params.tmp_dir}; samtools index {output.bam}"""
 
 
 rule prune:
