@@ -233,6 +233,7 @@ rule mark_duplicates:
     params:
         metrics = os.path.join(MD_DIR, '{library}.metrics'),
         tmp_dir = MD_DIR
+    resources: io_concurrent = 1
     shell:
         """java -Xmx4g -Xms4g -jar {PICARD_JAR} MarkDuplicates I={input.bam} O={output.bam} ASSUME_SORTED=true METRICS_FILE={params.metrics} VALIDATION_STRINGENCY=LENIENT TMP_DIR={params.tmp_dir}; samtools index {output.bam}"""
 
@@ -248,6 +249,7 @@ rule prune:
         tmp_dir = MD_DIR,
         mapq = 30,
         autosomes = lambda wildcards: get_autosomes(get_genome('{}'.format(wildcards.library)))
+    resources: io_concurrent = 1
     shell:
         """samtools view -b -h -f 3 -F 4 -F 8 -F 256 -F 1024 -F 2048 -q {params.mapq} {input.bam} {params.autosomes} > {output.bam}; samtools index {output.bam}"""
 
