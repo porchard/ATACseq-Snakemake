@@ -260,7 +260,7 @@ rule peaks:
         stderr_location = os.path.join(MACS2_DIR, '{library}.macs2.out'),
         outdir = MACS2_DIR
     shell:
-        """macs2 callpeak -t {input} --outdir {params.outdir} -f BAM -n {params.name} -g {params.genome_size} --nomodel --shift -100 --seed 762873 --extsize 200 -B --broad --keep-dup all &> {params.stderr_location}"""
+        """bedtools bamtobed -i {input} > {params.name}.bed; macs2 callpeak -t {params.name}.bed --outdir {params.outdir} -f BED -n {params.name} -g {params.genome_size} --nomodel --shift -100 --seed 762873 --extsize 200 -B --broad --keep-dup all &> {params.stderr_location}"""
 
 
 rule blacklist_filter:
