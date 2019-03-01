@@ -7,6 +7,7 @@ The standard Parker Lab ATAC-seq pipeline in Snakemake (for paired-end data). Fa
 4. mm10
 5. rn4
 6. rn5 
+7. rn6
 
 This can be changed by adding the desired genome's information to the `#GENERIC DATA` section of the Snakefile (although ataqv may fail to run for organisms besides fly, human, mouse, rat, worm, or yeast -- if you are processing data from another organism, you will need to edit the pipeline to supply ataqv with an autosomal reference file).
 
@@ -20,9 +21,7 @@ Python >=2.7, and the following software packages:
 5. samtools
 6. macs2
 7. bedtools
-8. ataqv
-
-Also, assumes that picard MarkDuplicates can be called using the syntax: `picard MarkDuplicates ...`.
+8. ataqv (can be downloaded from the Parker Lab github)
 
 ## Usage:
 This Snakemake pipeline requires a config file (JSON format) with the following information:
