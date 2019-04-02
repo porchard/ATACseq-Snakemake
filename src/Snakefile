@@ -212,7 +212,7 @@ rule map:
         bwa = os.path.join(LOG_DIR, 'map.bwa.{library}______{readgroup}.log'),
         samtools = os.path.join(LOG_DIR, 'map.samtools.{library}______{readgroup}.log')
     shell:
-        """bwa mem -M -R \'{params.rg}\' -t {threads} {input.fasta} {input.first} {input.second} 2> {log.bwa} | samtools sort -m 1g -@ {threads} -O bam -T {params.sort_tmp} -o {output} - 2> {log.samtools}"""
+        """bwa mem -M -R \'{params.rg}\' -I 200,200,5000 -t {threads} {input.fasta} {input.first} {input.second} 2> {log.bwa} | samtools sort -m 1g -@ {threads} -O bam -T {params.sort_tmp} -o {output} - 2> {log.samtools}"""
 
 
 rule merge:
